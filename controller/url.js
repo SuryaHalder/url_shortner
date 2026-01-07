@@ -12,7 +12,7 @@ async function getLongUrl(req,res){
         },
         {new:true}
     );
-    if(!result) return res.status('404').json({msg:'short url not found'})
+    if(!result) return res.status(404).json({msg:'short url not found'})
     res.redirect(result.longUrl)
 }
 
@@ -33,7 +33,10 @@ async function createShortId(req,res){
         shortId,
         longUrl,
     })
-    res.status(200).json({msg:'success',shortId:result.shortId})
+    return res.status(200).render("home",{
+        shortId,
+    })
+    
 
 
 }

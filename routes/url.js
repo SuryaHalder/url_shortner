@@ -7,8 +7,8 @@ const {
 }=require('../controller/url')
 const Router=express.Router()
 
-Router.get('/url/analytics/:id',getAnalytics)
-Router.post('/url',createShortId)
+Router.get('/analytics/:id',getAnalytics)
+Router.post('/',createShortId)
 Router.get('/:id',getLongUrl)
 
 module.exports=Router

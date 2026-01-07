@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>URL Shortner</h1>
+    <% if (locals.shortId) { %>
+        <p>Short Url: <a href="http://localhost:8000/url/<%= shortId %>">http://localhost:8000/url/<%= shortId %></a></p>
+    <% } %>
+    <div>
+        <form method="POST" action="/url">
+            <label>Input your original url</label>
+            <input type="text" name="longUrl" placeholder="https://example.com">
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                    <th>Sl. no.</th>
+                    <th>shortId</th>
+                    <th>longUrl</th>
+                    <th>clickCount</th>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url,index) => { %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= url.shortId %></td>
+                            <td><%= url.longUrl %></td>
+                            <td><%= url.clickCount %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>
