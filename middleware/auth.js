@@ -1,11 +1,11 @@
 const { handleUserLogin } = require('../controller/user');
 const {getUser}=require('../utils/auth')
 async function restrictToLoggedInUserOnly(req,res,next){
-    const useruuid=req.cookies.uuid;
-    if(!useruuid){
+    const userToken=req.cookies.token;
+    if(!userToken){
         return res.redirect('/login')
     }
-    const user=getUser(useruuid)
+    const user=getUser(userToken)
     if(!user){
         return res.redirect('/login')
     }

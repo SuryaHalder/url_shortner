@@ -1,4 +1,5 @@
-const { v4: uuidv4 } = require('uuid');
+require("dotenv").config();
+
 const User=require('../models/user')
 const {setUser,getUser}=require('../utils/auth')
 
@@ -22,9 +23,13 @@ async function handleUserLogin(req,res){
     if(!user) return res.render('login',{
         err:"invalid username or password"
     })
-    const sessionId=uuidv4()
-    setUser(sessionId,user);
-    res.cookie("uuid",sessionId)
+    const token=setUser(user);
+    res.cookie('token',token,{
+        httpOnly:true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite:"strict",
+        maxAge:7*24*60*60*1000,
+    })
     
     return res.redirect('/')
 }
