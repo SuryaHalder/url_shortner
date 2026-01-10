@@ -32,6 +32,8 @@ async function createShortId(req,res){
     const result=await URL.create({
         shortId,
         longUrl,
+        createdBy:req.user._id,
+        
     })
     return res.status(200).render("home",{
         shortId,
